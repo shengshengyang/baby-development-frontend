@@ -8,19 +8,19 @@ const tintColorDark = '#fff';
 
 export const Colors = {
   light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
+    text: '#5E412F',
+    background: '#FFF6F0', // 柔和溫暖的淺粉背景
+    tint: '#FFAFA3',        // 粉色系做為重點色
+    tabIconDefault: '#9C8D80',
+    tabIconSelected: '#FFAFA3',
+    icon: '#9C8D80',
   },
   dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
+    text: '#5E412F',
+    background: '#FFF6F0', // 柔和溫暖的淺粉背景
+    tint: '#FFAFA3',        // 粉色系做為重點色
+    tabIconDefault: '#9C8D80',
+    tabIconSelected: '#FFAFA3',
+    icon: '#9C8D80',
   },
 };
