@@ -4,8 +4,9 @@ import { Stack, useNavigation } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import {useEffect, useState} from 'react';
 import 'react-native-reanimated';
+import {Text, View} from 'react-native';
 
-import { AuthProvider } from '@/contexts/AuthContext';
+import {AuthProvider, useAuth} from '@/contexts/AuthContext';
 import { ThemeProvider, useThemeToggle } from '@/contexts/ThemeContext';
 import AuthHeader from '@/components/AuthHeader';
 
@@ -34,6 +35,18 @@ export default function RootLayout() {
     const HeaderRight = () => {
         const navigation = useNavigation();
         return <AuthHeader navigation={navigation} />;
+    };
+
+    // **自訂左側標題**：顯示使用者名稱或預設文字
+    const HeaderLeft = () => {
+        const { user } = useAuth();
+        return (
+            <View style={{ marginLeft: 16 }}>
+                <Text style={{ fontSize: 16, color: '#2f95dc', fontWeight: 'bold' }}>
+                    {user ? `${user.username}寶寶` : '寶寶成長記錄'}
+                </Text>
+            </View>
+        );
     };
 
     // 這邊定義同樣的 fonts
@@ -103,6 +116,11 @@ export default function RootLayout() {
                             name="(tabs)"
                             options={{
                                 headerShown: true,
+                                // ❶ 清空預設標題
+                                headerTitle: '',
+                                // ❷ 使用自訂左側
+                                headerLeft: () => <HeaderLeft />,
+                                // ❸ 使用自訂右側 (已存在的 AuthHeader)
                                 headerRight: HeaderRight,
                             }}
                         />

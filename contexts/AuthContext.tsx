@@ -13,7 +13,7 @@ interface Baby {
     }[];
 }
 
-interface User {
+export interface User {
     username: string;
     email: string;
     role: string[];

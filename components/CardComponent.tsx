@@ -1,33 +1,28 @@
+// CardComponent.tsx
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-
-interface MilestoneTranslation {
-    id: number;
-    languageCode: string;
-    frontText: string;
-    backText: string;
-    imageUrl: string;
-}
-
-interface Milestone {
-    id: number;
-    category: string;
-    milestoneId: number;
-    translations: MilestoneTranslation[];
-}
+import { FlashCard } from '@/util/api'; // 注意根據實際專案結構調整路徑
 
 interface CardProps {
-    milestone: Milestone;
+    flashCard: FlashCard;
 }
 
-export default function CardComponent({ milestone }: CardProps) {
-    // Use first translation as display text
-    const translation = milestone.translations[0];
+export default function CardComponent({ flashCard }: Readonly<CardProps>) {
+    // 使用第一筆翻譯作為顯示內容
+    const translation = flashCard.translations[0];
+
+    // 如果 translation 不存在，返回 null
+    if (!translation) {
+        return null;
+    }
 
     return (
         <View style={styles.card}>
-            <Text style={styles.category}>{milestone.category}</Text>
-            <Image source={{ uri: translation.imageUrl }} style={styles.image} />
+            <Text style={styles.category}>{flashCard.category}</Text>
+            <Text style={styles.age}>月齡: {flashCard.ageInMonths}個月</Text>
+            {translation.imageUrl ? (
+                <Image source={{ uri: translation.imageUrl }} style={styles.image} />
+            ) : null}
             <Text style={styles.frontText}>{translation.frontText}</Text>
             <Text style={styles.backText}>{translation.backText}</Text>
         </View>
@@ -49,6 +44,11 @@ const styles = StyleSheet.create({
     category: {
         fontSize: 16,
         fontWeight: '600',
+        marginBottom: 8,
+    },
+    age: {
+        fontSize: 14,
+        color: '#888',
         marginBottom: 8,
     },
     image: {
